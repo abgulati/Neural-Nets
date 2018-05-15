@@ -30,10 +30,12 @@ convert("train-images.idx3-ubyte", "train-labels.idx1-ubyte",
 convert("t10k-images.idx3-ubyte","t10k-labels.idx1-ubyte",
 		"mnist_test.csv", 10000)
 
-#For each of the 60k images, we're reading 784 Bytes as seen above (f.read(1) 784 times/image). Those 784 Bytes are read one
-#at a time. The first 16 Bytes are skipped(see below), then the read commences for the remaining Bytes, one Byte
-#at a time. For 60000 images, 784 Bytes at a time is 60000*784 = 47040000 Bytes in total. In our IDX file, we have 16 bytes
-#per line, so 470470000/16 = 2940000 lines, and we have exactly 2940001 full lines in our images IDX file and are skipping
+
+#For each of the 60k images, we're reading 784 Bytes as seen above (f.read(1) 784 times/image). This is because for a 28x28
+#image, that's 784 pixels and each pixel is represented by a single byte. Those 784 Bytes are read one at a time. The first
+#16 Bytes are skipped(see below), then the read commences for the remaining Bytes, one Byte at a time. For 60000 images, 
+#784 Bytes at a time is 60000*784 = 47040000 Bytes in total. In our IDX file, we have 16 bytes per line, so 
+#that's 470470000/16 = 2940000 lines, and we have exactly 2940001 full lines in our image IDX file and we are skipping
 #the first 16 Bytes, or one line.
 
 #Similarly, for the labels, we're skipping the first 8 Bytes. For 60000 images, each label is given by a single Byte, that's 
