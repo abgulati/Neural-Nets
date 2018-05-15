@@ -36,9 +36,9 @@ convert("t10k-images.idx3-ubyte","t10k-labels.idx1-ubyte",
 #per line, so 470470000/16 = 2940000 lines, and we have exactly 2940001 full lines in our images IDX file and are skipping
 #the first 16 Bytes, or one line.
 
-#Similarly, for the labels, we're skipping the first 8 Bytes. For 60000 images, each label is given by 8 Bytes, that's 
-#60000/8 = 7500 lines. But we have 16 Bytes per line, so that's 7500/2 = 3750 lines. Our IDX file has exactly 3750 lines
-#with 16 Bytes each, and a 3751th line with 8 Bytes, but 8 Bytes are skipped at the start.
+#Similarly, for the labels, we're skipping the first 8 Bytes. For 60000 images, each label is given by a single Byte, that's 
+#60000 Bytes of label data for 60000 images. We have 16 Bytes per line, so thats 60000/16 = 3750 lines. Our IDX file has 
+#exactly 3750 lines with 16 Bytes each, and a 3751th line with 8 Bytes, but 8 Bytes are skipped at the start.
 
 #Why are the first 16 Bytes skipped in our image files and the first 8 bytes skipped in our label files? This is because in
 #the image file, pixel data starts from the 17th Byte, and in the label file, label data starts from the 9th Byte. In the
