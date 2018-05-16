@@ -1,15 +1,17 @@
 import math
 import functools
 
-def forward_propagate(network_inputs, number_of_input_neurons, number_of_hidden_neurons, number_of_output_neurons, 
+def forward_propagate(current_input, number_of_input_neurons, number_of_hidden_neurons, number_of_output_neurons, 
 						input_to_hidden_layer_wts, hidden_to_output_layer_wts):
 	
+	#print(current_input)
+
 	#compute output of the hidden layer:
 	hidden_layer_output = []
 	for i in range(0, number_of_hidden_neurons):
 		sum_of_products_of_input = 0
 		for j in range(0, number_of_input_neurons):
-			sum_of_products_of_input += network_inputs[j] * input_to_hidden_layer_wts[j][i]
+			sum_of_products_of_input += current_input[j] * input_to_hidden_layer_wts[j][i]
 		neuron_output = (1/(1+math.exp(-sum_of_products_of_input)))			#sigmoid function here
 		hidden_layer_output.append(neuron_output)
 
@@ -29,4 +31,5 @@ def forward_propagate(network_inputs, number_of_input_neurons, number_of_hidden_
 		neuron_output = math.exp(sum_of_products_of_input)/sum_of_exponents		#softmax function here
 		network_output.append(neuron_output)
 
+	#print(network_output)
 	return network_output
