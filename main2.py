@@ -11,10 +11,9 @@ key_values = {0:[1,0,0,0,0,0,0,0,0,0], 4:[0,0,0,0,1,0,0,0,0,0], 7:[0,0,0,0,0,0,0
 			  3:[0,0,0,1,0,0,0,0,0,0]}									
 
 #obtaining necessary inputs and casting to int type
-number_of_input_neurons = int(input("Enter the number of neurons in the i/p layer: "))
-number_of_hidden_neurons = int(input("Enter the number of hidden neurons: "))
-number_of_output_neurons = int(input("Enter the number of neurons in the o/p layer: "))
-learning_rate = int(input("Enter the learning rate: "))
+number_of_input_neurons = int(input("Enter the number of neurons in the i/p layer"))
+number_of_hidden_neurons = int(input("Enter the number of hidden neurons"))
+number_of_output_neurons = int(input("Enter the number of neurons in the o/p layer"))
 
 #obtain specific network input
 pixels, labels = read_input()
@@ -29,26 +28,16 @@ error_over_time = []
 
 for i in range(10):
 	
-	collective_forward_pass_output = []
+	forward_pass_output = []
 	for i in range(len(labels)):
-		#obtain output of the forward pass
-		forward_pass_output, hidden_layer_output = forward_propagate(pixels_normalized[i], number_of_input_neurons, number_of_hidden_neurons, 
-									number_of_output_neurons, input_to_hidden_layer_wts, hidden_to_output_layer_wts)
-
-		#to compute batch error:
-		collective_forward_pass_output.append(forward_pass_output)
-
-		#otain new weights via back propagation
-		hidden_to_output_layer_wts, input_to_hidden_layer_wts = back_propagate(key_values.get(labels[i]), forward_pass_output,
-												number_of_output_neurons, number_of_hidden_neurons, number_of_input_neurons, 
-												hidden_to_output_layer_wts, input_to_hidden_layer_wts, pixels_normalized[i],
-												hidden_layer_output, learning_rate)
+		forward_pass_output.append(forward_propagate(pixels_normalized[i], number_of_input_neurons, number_of_hidden_neurons, 
+									number_of_output_neurons, input_to_hidden_layer_wts, hidden_to_output_layer_wts))
 
 	error = batch_mean_squared_error(forward_pass_output, key_values, labels, number_of_output_neurons)
-	print(error)
 
 	error_over_time.append(str(error))
 
+	print(str(error))
 
 #with open('error_rate.csv', 'w') as csv_file:
 #	writer = csv.writer(csv_file, delimiter=',')

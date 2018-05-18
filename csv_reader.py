@@ -13,15 +13,20 @@ def read_input():
 	for row in rows:
 		temp = []
 		for item in row:
-			temp.append(int(item))
+			item = int(item)
+			temp.append(item)
+
+			#if item == 0:
+			#	temp.append(item)
+			#else:
+			#	temp.append(1)
+
 		data.append(temp)
 
 	#obtain labels from the file
 	labels = []
 	for i in range(len(data)):
 		labels.append(data[i][0])
-
-	print("The labels are:",labels)
 
 	#obtain pixel data from the file
 	pixels = []
