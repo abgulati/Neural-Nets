@@ -32,8 +32,9 @@ for i in range(10):
 	collective_forward_pass_output = []
 	for i in range(len(labels)):
 		#obtain output of the forward pass
-		forward_pass_output, hidden_layer_output = forward_propagate(pixels_normalized[i], number_of_input_neurons, number_of_hidden_neurons, 
-									number_of_output_neurons, input_to_hidden_layer_wts, hidden_to_output_layer_wts)
+		hidden_layer_input, hidden_layer_output, forward_pass_output = forward_propagate(pixels_normalized[i], 
+									number_of_input_neurons, number_of_hidden_neurons, number_of_output_neurons, 
+									input_to_hidden_layer_wts, hidden_to_output_layer_wts)
 
 		#to compute batch error:
 		collective_forward_pass_output.append(forward_pass_output)
@@ -42,7 +43,7 @@ for i in range(10):
 		hidden_to_output_layer_wts, input_to_hidden_layer_wts = back_propagate(key_values.get(labels[i]), forward_pass_output,
 												number_of_output_neurons, number_of_hidden_neurons, number_of_input_neurons, 
 												hidden_to_output_layer_wts, input_to_hidden_layer_wts, pixels_normalized[i],
-												hidden_layer_output, learning_rate)
+												hidden_layer_input, hidden_layer_output, learning_rate)
 
 	error = batch_mean_squared_error(forward_pass_output, key_values, labels, number_of_output_neurons)
 	print(error)
