@@ -5,12 +5,17 @@ def forward_propagate(current_input, number_of_input_neurons, number_of_hidden_n
 						input_to_hidden_layer_wts, hidden_to_output_layer_wts):
 	
 	#compute output of the hidden layer:
+	hidden_layer_input = []
 	hidden_layer_output = []
-	for i in range(0, number_of_hidden_neurons):
+	for i in range(number_of_hidden_neurons):
 		sum_of_products_of_input = 0
-		for j in range(0, number_of_input_neurons):
-			sum_of_products_of_input += current_input[j] * input_to_hidden_layer_wts[j][i]
+		individual_inputs = []
+		for j in range(number_of_input_neurons):
+			temp = current_input[j] * input_to_hidden_layer_wts[j][i]
+			individual_inputs.append(temp)
+			sum_of_products_of_input += temp
 		neuron_output = (1/(1+math.exp(-sum_of_products_of_input)))			#sigmoid function here
+		hidden_layer_input.append(individual_inputs)
 		hidden_layer_output.append(neuron_output)
 
 	#now to compute the output of the o/p layer, i.e., the network o/p:
@@ -29,4 +34,4 @@ def forward_propagate(current_input, number_of_input_neurons, number_of_hidden_n
 		neuron_output = math.exp(sum_of_products_of_input)/sum_of_exponents		#softmax function here
 		network_output.append(neuron_output)
 
-	return hidden_layer_output, network_output
+	return hidden_layer_input, hidden_layer_output, network_output
