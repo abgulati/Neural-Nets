@@ -3,6 +3,7 @@ from InitializeWeights import *
 from batch_mean_squared_error2 import *
 from csv_reader import *
 from normalize import *
+from BackPropagate import *
 
 #one-hot matrices for digits 0-9, these are the targets
 key_values = {0:[1,0,0,0,0,0,0,0,0,0], 4:[0,0,0,0,1,0,0,0,0,0], 7:[0,0,0,0,0,0,0,1,0,0],
@@ -11,9 +12,13 @@ key_values = {0:[1,0,0,0,0,0,0,0,0,0], 4:[0,0,0,0,1,0,0,0,0,0], 7:[0,0,0,0,0,0,0
 			  3:[0,0,0,1,0,0,0,0,0,0]}									
 
 #obtaining necessary inputs and casting to int type
-number_of_input_neurons = int(input("Enter the number of neurons in the i/p layer: "))
-number_of_hidden_neurons = int(input("Enter the number of hidden neurons: "))
-number_of_output_neurons = int(input("Enter the number of neurons in the o/p layer: "))
+# number_of_input_neurons = int(input("Enter the number of neurons in the i/p layer: "))
+# number_of_hidden_neurons = int(input("Enter the number of hidden neurons: "))
+# number_of_output_neurons = int(input("Enter the number of neurons in the o/p layer: "))
+
+number_of_input_neurons = 784
+number_of_hidden_neurons = 784
+number_of_output_neurons = 10
 learning_rate = int(input("Enter the learning rate: "))
 
 #obtain specific network input
